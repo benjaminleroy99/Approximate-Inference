@@ -112,8 +112,6 @@ def metropolis_hastings(X: np.ndarray,
         p_theta_t=get_log_upper_proba_distribution(X,y,first_theta,sigma_prior)
 
 
-
-
         if p_theta_prime[0]/(p_theta_t[0])>=u:
             first_theta=newly_sampled_theta
             list_kept_thetas.append(first_theta)
@@ -122,6 +120,9 @@ def metropolis_hastings(X: np.ndarray,
             newly_sampled_theta=first_theta
             list_kept_thetas.append(first_theta)
             is_sample_accepted = False
+
+        print("is_sample_accepted")
+        print(is_sample_accepted)
 
         yield is_sample_accepted, np.array(list_kept_thetas), newly_sampled_theta, u
 
