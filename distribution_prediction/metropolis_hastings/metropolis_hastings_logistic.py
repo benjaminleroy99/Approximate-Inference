@@ -144,11 +144,12 @@ def get_predictions(X_star: np.ndarray,
 
 
     proba=np.zeros((N,1))
+
     for i in range(N):
         x_i = X_star[i]
         p = 0
         for j in range(M):
-            theta_j=array_samples_theta[j]
+            theta_j=array_samples_theta[j].T
             p+=sigmoid(x_i,theta_j)
 
         print(p)
