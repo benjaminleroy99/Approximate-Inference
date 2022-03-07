@@ -117,7 +117,7 @@ def metropolis_hastings(X: np.ndarray,
             list_kept_thetas.append(first_theta)
             is_sample_accepted=True
         else:
-            newly_sampled_theta=first_theta
+            #newly_sampled_theta=first_theta
             list_kept_thetas.append(first_theta)
             is_sample_accepted = False
 
