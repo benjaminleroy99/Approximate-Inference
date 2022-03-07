@@ -122,8 +122,6 @@ def metropolis_hastings(X: np.ndarray,
             list_kept_thetas.append(first_theta)
             is_sample_accepted = False
 
-        print("is_sample_accepted")
-        print(is_sample_accepted)
 
         yield is_sample_accepted, np.array(list_kept_thetas), newly_sampled_theta, u
 
@@ -140,8 +138,6 @@ def get_predictions(X_star: np.ndarray,
     where each x_star corresponds to a row in X_star. The result should be a column vector of shape (N, 1), its i'th
     row should be equal to the prediction p(C_1|X,y,x_star_i) where x_star_i corresponds to the i'th row in X_star
     """
-    # TODO
-
 
     N,_=X_star.shape
     M,_=array_samples_theta.shape
@@ -156,8 +152,8 @@ def get_predictions(X_star: np.ndarray,
             theta_j=array_samples_theta[j].T
             p+=sigmoid(x_i,theta_j)
 
-        print(p)
-        proba[i,0]=p
+        #print(p)
+        proba[i,0]=p/M
 
     return proba
 
