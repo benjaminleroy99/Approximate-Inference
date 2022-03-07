@@ -66,20 +66,30 @@ def metropolis_hastings_gaussian_process(gp: GaussianProcess,
     # (2) if newly_sampled_theta is rejected, you should add the last accepted sampled theta.
     list_kept_thetas = []
 
-    newly_sampled_theta = None  # Last sampled parameters (from the proposal density q)
-
-    is_sample_accepted = False  # Should be True if and only if the last sample has been accepted
-
-    u = np.random.rand()  # Random number used for deciding if newly_sampled_theta should be accepted or not
 
     first_theta = np.zeros(number_hyperparameters_gaussian_process)
 
     # -------------------------------------------------------------------------------------------------
 
     while len(list_kept_thetas) < number_expected_iterations:
-        #########################
-        # TODO : Complete Here
-        #########################
+        u = np.random.rand()  # Random number used for deciding if newly_sampled_theta should be accepted or not
+
+        newly_sampled_theta=np.random.multivariate_normal(first_theta,sigma_exploration_mh**2*np.eye(X.shape[1]))
+
+
+        p_theta_prime=np.exp(get_log_upper_proba_distribution(gp,newly_sampled_theta))
+        p_theta_t=np.exp(get_log_upper_proba_distribution(gp,first_theta))
+
+
+
+        if p_theta_prime[0]/(p_theta_t[0])>=u:
+            first_theta=newly_sampled_theta
+            list_kept_thetas.append(first_theta)
+            is_sample_accepted=True
+        else:
+            #newly_sampled_theta=first_theta
+            list_kept_thetas.append(first_theta)
+            is_sample_accepted = False
 
         yield is_sample_accepted, np.array(list_kept_thetas), newly_sampled_theta, u
 
