@@ -106,11 +106,11 @@ def metropolis_hastings(X: np.ndarray,
         print('theta proposal')
         print(newly_sampled_theta)
 
-        #p_theta_prime=np.exp(get_log_upper_proba_distribution(X,y,newly_sampled_theta,sigma_prior))
-        #p_theta_t=np.exp(get_log_upper_proba_distribution(X,y,first_theta,sigma_prior))
+        p_theta_prime=np.exp(get_log_upper_proba_distribution(X,y,newly_sampled_theta,sigma_prior))
+        p_theta_t=np.exp(get_log_upper_proba_distribution(X,y,first_theta,sigma_prior))
 
-        p_theta_prime=get_log_upper_proba_distribution(X,y,newly_sampled_theta,sigma_prior)
-        p_theta_t=get_log_upper_proba_distribution(X,y,first_theta,sigma_prior)
+        #p_theta_prime=get_log_upper_proba_distribution(X,y,newly_sampled_theta,sigma_prior)
+        #p_theta_t=get_log_upper_proba_distribution(X,y,first_theta,sigma_prior)
 
 
         if p_theta_prime[0]/(p_theta_t[0])>=u:
