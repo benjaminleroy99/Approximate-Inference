@@ -103,8 +103,6 @@ def metropolis_hastings(X: np.ndarray,
 
         newly_sampled_theta=np.random.multivariate_normal(first_theta,sigma_exploration_mh**2*np.eye(X.shape[1]))
 
-        print('theta proposal')
-        print(newly_sampled_theta)
 
         p_theta_prime=np.exp(get_log_upper_proba_distribution(X,y,newly_sampled_theta,sigma_prior))
         p_theta_t=np.exp(get_log_upper_proba_distribution(X,y,first_theta,sigma_prior))
@@ -160,8 +158,8 @@ def get_predictions(X_star: np.ndarray,
 
 
 if __name__ == '__main__':
-    plot_metropolis_hastings_logistics(num_samples=1000,
-                                       interactive=True,
+    plot_metropolis_hastings_logistics(number_expected_iterations=1000,
+                                       interactive=False,
                                        sigma_exploration_mh=1,
                                        sigma_prior=1,
                                        number_points_per_class=25)

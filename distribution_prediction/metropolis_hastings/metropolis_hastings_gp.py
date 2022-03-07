@@ -24,8 +24,9 @@ def get_log_upper_proba_distribution_gp(gaussian_process: GaussianProcess,
     of shape (6,). As our linear + gaussian kernel depends on 6 real numbers.
     :return: log( p_1(theta | X, y) )
     """
-    # TODO
+    #mean,std=GaussianProcess.get_gp_mean_std(theta)
 
+    return GaussianProcess.get_log_prior_at(theta)
 
 def metropolis_hastings_gaussian_process(gp: GaussianProcess,
                                          number_expected_iterations: int,
