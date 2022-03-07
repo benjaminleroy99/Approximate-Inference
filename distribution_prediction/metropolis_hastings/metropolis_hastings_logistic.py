@@ -113,6 +113,7 @@ def metropolis_hastings(X: np.ndarray,
         if p_theta_prime[0]/p_theta_t[0]>=u:
             first_theta=newly_sampled_theta
             list_kept_thetas.append(first_theta)
+
             is_sample_accepted=True
             u = np.random.rand()  # Random number used for deciding if newly_sampled_theta should be accepted or not
         else:
