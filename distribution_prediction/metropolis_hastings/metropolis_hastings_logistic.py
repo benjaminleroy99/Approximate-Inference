@@ -118,6 +118,8 @@ def metropolis_hastings(X: np.ndarray,
             u = np.random.rand()  # Random number used for deciding if newly_sampled_theta should be accepted or not
         else:
             newly_sampled_theta=first_theta
+            list_kept_thetas.append(first_theta)
+
             is_sample_accepted = False
             u = np.random.rand()  # Random number used for deciding if newly_sampled_theta should be accepted or not
 
