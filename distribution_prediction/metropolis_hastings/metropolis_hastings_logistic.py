@@ -90,15 +90,15 @@ def metropolis_hastings(X: np.ndarray,
 
     is_sample_accepted = False  # Should be True if and only if the last sample has been accepted
 
-    u = np.random.rand()  # Random number used for deciding if newly_sampled_theta should be accepted or not
 
     first_theta = np.zeros(X.shape[1])
 
     # -------------------------------------------------------------------------------------------------
+    #   list_kept_thetas.append(first_theta)
 
     while len(list_kept_thetas) < number_expected_iterations:
         #########################
-
+        u = np.random.rand()  # Random number used for deciding if newly_sampled_theta should be accepted or not
 
         newly_sampled_theta=np.random.multivariate_normal(first_theta,sigma_exploration_mh**2*np.eye(X.shape[1]))
 
@@ -111,14 +111,11 @@ def metropolis_hastings(X: np.ndarray,
         if p_theta_prime[0]/p_theta_t[0]>=u:
             first_theta=newly_sampled_theta
             list_kept_thetas.append(first_theta)
-
             is_sample_accepted=True
-            u = np.random.rand()  # Random number used for deciding if newly_sampled_theta should be accepted or not
         else:
             newly_sampled_theta=first_theta
 
             is_sample_accepted = False
-            u = np.random.rand()  # Random number used for deciding if newly_sampled_theta should be accepted or not
 
         yield is_sample_accepted, np.array(list_kept_thetas), newly_sampled_theta, u
 
