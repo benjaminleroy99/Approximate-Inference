@@ -101,13 +101,13 @@ def metropolis_hastings(X: np.ndarray,
         list_kept_thetas.append(first_theta)
 
 
-        newly_sampled_theta=np.random.multivariate_normal(first_theta,sigma_exploration_mh**2*np.eye(X.shape(1)),2)
+        newly_sampled_theta=np.random.multivariate_normal(first_theta,sigma_exploration_mh**2*np.eye(X.shape[1]),2)
 
         print('theta proposal')
-        print(theta_proposal)
+        print(newly_sampled_theta)
 
-        p_theta_prime=np.exp(self.get_log_upper_proba_distribution(X,y,newly_sampled_theta,sigma_prior))
-        p_theta_t=np.exp(self.get_log_upper_proba_distribution(X,y,first_theta,sigma_prior))
+        p_theta_prime=np.exp(get_log_upper_proba_distribution(X,y,newly_sampled_theta,sigma_prior))
+        p_theta_t=np.exp(get_log_upper_proba_distribution(X,y,first_theta,sigma_prior))
 
         if p_theta_prime/p_theta_t>=u:
             first_theta=newly_sampled_theta
@@ -134,6 +134,25 @@ def get_predictions(X_star: np.ndarray,
     row should be equal to the prediction p(C_1|X,y,x_star_i) where x_star_i corresponds to the i'th row in X_star
     """
     # TODO
+
+
+    N,_=X_star.shape
+    M,_=array_samples_theta
+
+
+    proba=np.zeros((N,1))
+    for i in range(N):
+        x_i = X_star[i]
+        p = 0
+        for j in range(M):
+            theta_j=array_samples_theta[j]
+            p+=sigmoid(x_i,theta_j)
+
+        print(p)
+        proba[i,0]=p
+
+    return proba
+
 
 
 if __name__ == '__main__':
