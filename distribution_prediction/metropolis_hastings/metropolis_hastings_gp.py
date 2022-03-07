@@ -25,15 +25,15 @@ def get_log_upper_proba_distribution_gp(gaussian_process: GaussianProcess,
     :return: log( p_1(theta | X, y) )
     """
     #mean,std=GaussianProcess.get_gp_mean_std(theta)
-    print("theta")
-    print(theta)
-    print(theta.shape)
-    print("theta transpose")
 
-    print(theta.T)
-    print(theta.T.shape)
+    theta=np.array([teta for teta in theta])
 
-    return gaussian_process.get_log_prior_at(theta.T)
+    theta_ = np.zeros((1, 6))
+    for i in range(6):
+        theta_[0][i] = theta[i]
+
+
+    return gaussian_process.get_log_prior_at(theta_.T)
 
 def metropolis_hastings_gaussian_process(gp: GaussianProcess,
                                          number_expected_iterations: int,
