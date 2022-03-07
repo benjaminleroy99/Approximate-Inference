@@ -105,15 +105,16 @@ def metropolis_hastings(X: np.ndarray,
         print('theta proposal')
         print(newly_sampled_theta)
 
-        p_theta_prime=np.exp(get_log_upper_proba_distribution(X,y,newly_sampled_theta,sigma_prior))
-        p_theta_t=np.exp(get_log_upper_proba_distribution(X,y,first_theta,sigma_prior))
+        #p_theta_prime=np.exp(get_log_upper_proba_distribution(X,y,newly_sampled_theta,sigma_prior))
+        #p_theta_t=np.exp(get_log_upper_proba_distribution(X,y,first_theta,sigma_prior))
 
-        num_proposal = np.exp(-0.5 * np.linalg.norm((newly_sampled_theta-first_theta) / sigma_prior) ** 2) * 1 / (2 * np.pi * sigma_prior ** 2)
-        denom_proposal = np.exp(-0.5 * np.linalg.norm((newly_sampled_theta-first_theta) / sigma_prior) ** 2) * 1 / (2 * np.pi * sigma_prior ** 2)
+        p_theta_prime=get_log_upper_proba_distribution(X,y,newly_sampled_theta,sigma_prior)
+        p_theta_t=get_log_upper_proba_distribution(X,y,first_theta,sigma_prior)
 
 
 
-        if p_theta_prime[0]*num_proposal/(p_theta_t[0]*denom_proposal)>=u:
+
+        if p_theta_prime[0]/(p_theta_t[0])>=u:
             first_theta=newly_sampled_theta
             list_kept_thetas.append(first_theta)
             is_sample_accepted=True
