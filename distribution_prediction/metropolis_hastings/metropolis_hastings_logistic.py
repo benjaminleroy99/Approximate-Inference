@@ -30,13 +30,11 @@ def get_log_upper_proba_distribution(X: np.ndarray,
     """
     N,_=X.shape
 
-    #value_prior=np.exp(-0.5*np.linalg.norm(theta/sigma_prior)**2)*1/np.sqrt(2*np.pi*sigma_prior**2)
     value_prior=np.exp(-0.5*np.linalg.norm(theta/sigma_prior)**2)*1/(2*np.pi*sigma_prior**2)
-
+    #attention aux dim on est dans matrice carre de dim 2
 
     log_p_1=np.log(value_prior)
-    print("original value")
-    print(log_p_1)
+
 
     for i in range(N):
 
@@ -113,7 +111,7 @@ def metropolis_hastings(X: np.ndarray,
         p_theta_prime=np.exp(get_log_upper_proba_distribution(X,y,newly_sampled_theta,sigma_prior))
         p_theta_t=np.exp(get_log_upper_proba_distribution(X,y,first_theta,sigma_prior))
 
-        if p_theta_prime/p_theta_t>=u:
+        if p_theta_prime[0]/p_theta_t[0]>=u:
             first_theta=newly_sampled_theta
             is_sample_accepted=True
             u = np.random.rand()  # Random number used for deciding if newly_sampled_theta should be accepted or not
