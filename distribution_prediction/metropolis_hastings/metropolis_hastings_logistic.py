@@ -139,7 +139,7 @@ def get_predictions(X_star: np.ndarray,
 
 
     N,_=X_star.shape
-    M,_=array_samples_theta
+    M,_=array_samples_theta.shape
 
 
     proba=np.zeros((N,1))
