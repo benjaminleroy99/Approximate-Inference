@@ -94,13 +94,29 @@ def metropolis_hastings(X: np.ndarray,
 
     # -------------------------------------------------------------------------------------------------
 
+
+
     while len(list_kept_thetas) < number_expected_iterations:
         #########################
-        #proposal=np.random.multivariate_normal(np.zeros(1,X.shape(1)),sigma_exploration_mh**2*np.eye(X.shape(1)))
+        list_kept_thetas.append(first_theta)
 
 
+        newly_sampled_theta=np.random.multivariate_normal(first_theta,sigma_exploration_mh**2*np.eye(X.shape(1)),2)
 
-        #########################
+        print('theta proposal')
+        print(theta_proposal)
+
+        p_theta_prime=np.exp(self.get_log_upper_proba_distribution(X,y,newly_sampled_theta,sigma_prior))
+        p_theta_t=np.exp(self.get_log_upper_proba_distribution(X,y,first_theta,sigma_prior))
+
+        if p_theta_prime/p_theta_t>=u:
+            first_theta=newly_sampled_theta
+            is_sample_accepted=True
+            u = np.random.rand()  # Random number used for deciding if newly_sampled_theta should be accepted or not
+        else:
+            newly_sampled_theta=first_theta
+            is_sample_accepted = False
+            u = np.random.rand()  # Random number used for deciding if newly_sampled_theta should be accepted or not
 
         yield is_sample_accepted, np.array(list_kept_thetas), newly_sampled_theta, u
 
