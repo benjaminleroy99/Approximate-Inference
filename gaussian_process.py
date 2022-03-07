@@ -467,6 +467,10 @@ class GaussianProcess(object):
         return -1 * self.get_negative_log_marginal_likelihood(*log_kernel_parameters)
 
     def get_log_prior_at(self, *log_kernel_parameters):
+
+        print("truc qui casse la te")
+        print(log_kernel_parameters)
+
         N = len(log_kernel_parameters)
 
         print("valuer de N")
