@@ -94,7 +94,8 @@ def metropolis_hastings(X: np.ndarray,
     first_theta = np.zeros(X.shape[1])
 
     # -------------------------------------------------------------------------------------------------
-    list_kept_thetas.append(first_theta)
+    #list_kept_thetas.append(first_theta)
+    #j'ai verif on le met pas !!
 
     while len(list_kept_thetas) < number_expected_iterations:
         #########################
