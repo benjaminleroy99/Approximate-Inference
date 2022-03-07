@@ -3,6 +3,8 @@ import numpy as np
 
 from distribution_prediction.metropolis_hastings.utils_plots import plot_metropolis_hastings_logistics
 
+from distribution_prediction.utils import sigmoid
+
 
 def get_log_upper_proba_distribution(X: np.ndarray,
                                      y: np.ndarray,
@@ -94,7 +96,10 @@ def metropolis_hastings(X: np.ndarray,
 
     while len(list_kept_thetas) < number_expected_iterations:
         #########################
-        # TODO : Complete Here
+        #proposal=np.random.multivariate_normal(np.zeros(1,X.shape(1)),sigma_exploration_mh**2*np.eye(X.shape(1)))
+
+
+
         #########################
 
         yield is_sample_accepted, np.array(list_kept_thetas), newly_sampled_theta, u
