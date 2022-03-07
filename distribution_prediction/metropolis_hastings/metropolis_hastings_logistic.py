@@ -31,7 +31,7 @@ def get_log_upper_proba_distribution(X: np.ndarray,
     N,_=X.shape
 
     #value_prior=np.exp(-0.5*np.linalg.norm(theta/sigma_prior)**2)*1/np.sqrt(2*np.pi*sigma_prior**2)
-    value_prior=np.exp(-0.5*np.linalg.norm(theta/sigma_prior)**2)*1/(2*np.pi*sigma_prior**4)
+    value_prior=np.exp(-0.5*np.linalg.norm(theta/sigma_prior)**2)*1/(2*np.pi*sigma_prior**2)
 
 
     log_p_1=np.log(value_prior)
