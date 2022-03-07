@@ -36,8 +36,8 @@ def get_log_upper_proba_distribution(X: np.ndarray,
 
     for i in range(N):
 
-        x_i=theta*X[i].T
-        p=sigmoid((x_i))
+        x_i=X[i]
+        p=sigmoid(x_i,theta.T)
 
         y_i=y[i]
 
