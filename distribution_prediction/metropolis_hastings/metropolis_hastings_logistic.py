@@ -103,7 +103,7 @@ def metropolis_hastings(X: np.ndarray,
         list_kept_thetas.append(first_theta)
 
 
-        newly_sampled_theta=np.random.multivariate_normal(first_theta,sigma_exploration_mh**2*np.eye(X.shape[1]),2)
+        newly_sampled_theta=np.random.multivariate_normal(first_theta,sigma_exploration_mh**2*np.eye(X.shape[1]))
 
         print('theta proposal')
         print(newly_sampled_theta)
