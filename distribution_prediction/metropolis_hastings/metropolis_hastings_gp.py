@@ -25,6 +25,13 @@ def get_log_upper_proba_distribution_gp(gaussian_process: GaussianProcess,
     :return: log( p_1(theta | X, y) )
     """
     #mean,std=GaussianProcess.get_gp_mean_std(theta)
+    print("theta")
+    print(theta)
+    print(theta.shape)
+    print("theta transpose")
+
+    print(theta.T)
+    print(theta.T.shape)
 
     return gaussian_process.get_log_prior_at(theta.T)
 
