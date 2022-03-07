@@ -26,7 +26,26 @@ def get_log_upper_proba_distribution(X: np.ndarray,
     :param sigma_prior: standard deviation of the prior on the parameters
     :return: log( p_1(theta | X, y) )
     """
-    # TODO
+    N,_=X.shape
+
+    value_prior=np.exp(-0.5*(theta/sigma_prior)**2)*1/np.sqrt(2*np.pi*sigma_prior**2)
+
+    log_p_1=np.log(value_prior)
+
+    for i in range(N):
+
+        x_i=theta*X[i].T
+        p=sigmoid((x_i))
+
+        y_i=y[i]
+
+        proba=p**y_i*(1-p)**(1-y_i)
+
+        log_p_1+=np.log(proba)
+
+    return log_p_1
+
+
 
 
 def metropolis_hastings(X: np.ndarray,
