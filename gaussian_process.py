@@ -171,11 +171,14 @@ class GaussianProcess(object):
         - log_length_scale
         - log_noise_scale
         """
+
+        '''
         print("get neg log arf")
         print(log_kernel_parameters)
         print(len(log_kernel_parameters))
         print(*log_kernel_parameters)
         print(len(*log_kernel_parameters))
+        '''
 
 
         self.set_kernel_parameters(*log_kernel_parameters)
