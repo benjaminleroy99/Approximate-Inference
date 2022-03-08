@@ -35,7 +35,14 @@ def kl_div(mu: np.ndarray,
     N(mean=0, variance=(sigma_prior**2) I)
     :return: the value of the KL divergence
     """
-    # TODO
+    sigma=A @ A.T
+
+    value=np.log(sigma_prior**2/np.linalg.det(sigma))
+    value+=-len(mu)
+    value+=np.trace(1/sigma_prior**2 * np.eye(len(sigma)) @ sigma)
+    value+=1/sigma_prior**2 * (mu.T @ mu)
+
+    return  value/2
 
 
 def expected_log_likelihood(mu: np.ndarray,
