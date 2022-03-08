@@ -43,7 +43,7 @@ def kl_div(mu: np.ndarray,
     print("evolution value")
     value=onp.log(sigma_prior**2/onp.linalg.det(sigma))
     print(value)
-    value+=-len(mu)
+    value+=-(len(mu)+1)
     print(value)
     value+=onp.trace((1/sigma_prior**2 * onp.eye(len(sigma)) )@ sigma)
     print(value)
@@ -160,6 +160,7 @@ def variational_inference_logistics(X: np.ndarray,
 
 
         print(f"grad de la L :{grad(L)}")
+
         A_grad,mu_grad=grad(L)
 
         #############################

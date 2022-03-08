@@ -38,8 +38,10 @@ def get_log_upper_proba_distribution_gp(gaussian_process: GaussianProcess,
     #return gaussian_process.get_log_prior_at(para)
 
 
+    print("valuer qu'on sort")
+    print(gaussian_process.get_log_prior_at(theta))
 
-    return gaussian_process.get_log_prior_at(theta)
+    return gaussian_process.get_log_prior_at(theta)[0] #maybe add [0]
 
 def metropolis_hastings_gaussian_process(gp: GaussianProcess,
                                          number_expected_iterations: int,
