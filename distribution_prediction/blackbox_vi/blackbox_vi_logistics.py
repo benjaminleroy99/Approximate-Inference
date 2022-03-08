@@ -41,6 +41,7 @@ def kl_div(mu: np.ndarray,
 
     sigma=A * A.T
 
+
     print(f"sigma isss:  {sigma}  ")
 
 
@@ -81,32 +82,33 @@ def expected_log_likelihood(mu: np.ndarray,
     S=len(epsilon)
     N,_=X.shape
 
+    '''
     print("calcul de theta mu puis A puis epsilon")
     print(f"mu is :{mu}")
     print(f"A is : {A}")
     print(f"epsilon is : {epsilon}")
-
+    '''
     exp_log_lik=0
 
     for s in range(S):
 
-        print("claucl theta_s")
-        print(mu)
-        print(A @ epsilon[s].T)
+        #print("claucl theta_s")
+        #print(mu)
+        #print(A @ epsilon[s].T)
         theta_s=mu+ A @ epsilon[s].T
-        print(f"so theta_f is {theta_s}")
+        #print(f"so theta_f is {theta_s}")
 
         value=0
         for i in range(N):
             proba=sigmoid(X[i],theta_s)
             y_i=y[i]
             value+=np.log(proba**y_i*(1-proba)**(1-y_i))
-        print("value added")
-        print(value)
+        #print("value added")
+        #print(value)
         exp_log_lik+=value
 
-    print("expected log lik")
-    print(exp_log_lik)
+    #print("expected log lik")
+    #print(exp_log_lik)
     return exp_log_lik[0]/S
 
 
@@ -166,6 +168,7 @@ def variational_inference_logistics(X: np.ndarray,
 
         epsilon=onp.random.multivariate_normal(np.zeros(P),np.eye(P),num_samples_per_turn)
 
+        '''
         print("epsilon is")
         print(epsilon)
 
@@ -174,10 +177,12 @@ def variational_inference_logistics(X: np.ndarray,
 
         print("kl div")
         print(kl_div(mu_old,A_old,sigma_prior))
-
+        '''
 
         def loss(A,mu):
-
+            print("loss")
+            print(expected_log_likelihood(mu,A,epsilon,X,y))
+            print(kl_div(mu,A,sigma_prior))
             return expected_log_likelihood(mu,A,epsilon,X,y)-kl_div(mu,A,sigma_prior)
 
 
@@ -204,4 +209,4 @@ if __name__ == '__main__':
     plot_vi_logistics(interactive=True,
                       interval_plot=1,
                       number_points_per_class=25,
-                      number_iterations=1000)
+                      number_iterations=10)#1000)
