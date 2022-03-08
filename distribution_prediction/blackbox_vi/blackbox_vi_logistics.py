@@ -52,7 +52,7 @@ def kl_div(mu: np.ndarray,
     value=value/2
     print(value)
 
-    return  value
+    return  value[0][0]
 
 
 def expected_log_likelihood(mu: np.ndarray,
