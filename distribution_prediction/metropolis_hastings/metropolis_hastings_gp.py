@@ -30,7 +30,13 @@ def get_log_upper_proba_distribution_gp(gaussian_process: GaussianProcess,
     print(theta)
 
     log_upper=0
+
+
+
     for theta_i in theta:
+
+        print("theta_i is ")
+        print(theta_i)
 
         #gaussian_process._kernel.set_parameters(theta_i)
 
