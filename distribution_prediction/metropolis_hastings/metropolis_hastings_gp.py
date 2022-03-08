@@ -173,7 +173,7 @@ def test_metropolis_hastings(objective_function: ObjectiveFunction,
                         marker="+",
                         zorder=1000,
                         s=(30,))
-            plt.pause(0.05)
+            #plt.pause(0.05)
         plt.show()
 
 

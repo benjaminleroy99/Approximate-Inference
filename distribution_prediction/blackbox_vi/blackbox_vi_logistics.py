@@ -161,7 +161,7 @@ def variational_inference_logistics(X: np.ndarray,
         #compute espilon mu_grad et A_grad
 
 
-        epsilon=onp.random.multivariate_normal(np.zeros(num_samples_per_turn),np.eye(num_samples_per_turn),num_samples_per_turn)
+        epsilon=onp.random.multivariate_normal(np.zeros(P),np.eye(P),num_samples_per_turn)
 
         print("epsilon is")
         print(epsilon)
@@ -173,12 +173,14 @@ def variational_inference_logistics(X: np.ndarray,
         print(kl_div(mu_old,A_old,sigma_prior))
 
 
-        L=expected_log_likelihood(mu_old,A_old,epsilon,X,y)-kl_div(mu_old,A_old,sigma_prior)
+        def loss(A,mu):
+
+            return expected_log_likelihood(mu,A,epsilon,X,y)-kl_div(mu,A,sigma_prior)
 
 
-        print(f"grad de la L :{grad(L)}")
+        mu_grad=grad(loss, 1)(A_old, mu_old)
+        A_grad=grad(loss, 0)(A_old, mu_old)
 
-        A_grad,mu_grad=grad(L)
 
         #############################
 

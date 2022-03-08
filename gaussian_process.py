@@ -474,13 +474,7 @@ class GaussianProcess(object):
 
     def get_log_prior_at(self, *log_kernel_parameters):
 
-        print("truc qui casse la te")
-        print(log_kernel_parameters)
-
         N = len(log_kernel_parameters)
-
-        print("valuer de N")
-        print(N)
 
         return multivariate_normal.logpdf(np.array(log_kernel_parameters).reshape(1, N),
                                           mean=np.zeros(N), cov=(self.sigma_prior_parameter ** 2) * np.identity(N))
