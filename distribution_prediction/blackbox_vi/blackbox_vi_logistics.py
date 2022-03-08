@@ -81,12 +81,11 @@ def expected_log_likelihood(mu: np.ndarray,
     print(f"mu is :{mu}")
     print(f"A is : {A}")
     print(f"epsilon is : {epsilon}")
-    theta=mu+ A @ epsilon.T
 
     exp_log_lik=0
 
     for s in range(S):
-        theta_s=theta[s]
+        theta_s=mu+ A @ epsilon[s].T
         value=0
         for i in range(N):
             proba=sigmoid(X[i],theta_s)
