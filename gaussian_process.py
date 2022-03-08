@@ -66,6 +66,8 @@ class GaussianProcess(object):
         :param log_length_scale:
         :param log_noise_scale:
         """
+
+
         self._kernel.set_parameters(*log_kernel_parameters)
         self.update_covariance_matrix()
 
@@ -172,13 +174,6 @@ class GaussianProcess(object):
         - log_noise_scale
         """
 
-        '''
-        print("get neg log arf")
-        print(log_kernel_parameters)
-        print(len(log_kernel_parameters))
-        print(*log_kernel_parameters)
-        print(len(*log_kernel_parameters))
-        '''
 
 
         self.set_kernel_parameters(*log_kernel_parameters)

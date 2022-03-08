@@ -30,9 +30,9 @@ def get_log_upper_proba_distribution_gp(gaussian_process: GaussianProcess,
     print(theta)
 
 
-    log_marg=gaussian_process.get_log_marginal_likelihood(theta)
+    log_marg=gaussian_process.get_log_marginal_likelihood(*theta)
 
-    log_prior = gaussian_process.get_log_prior_at(theta)
+    log_prior = gaussian_process.get_log_prior_at(*theta)
 
     print("values marg et prior")
     print(log_marg)
