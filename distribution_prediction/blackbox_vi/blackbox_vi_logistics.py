@@ -71,12 +71,12 @@ def expected_log_likelihood(mu: np.ndarray,
 
     exp_log_lik=0
 
-    for s in S:
+    for s in range(S):
         theta_s=theta[s]
         value=0
         for i in range(N):
             proba=sigmoid(X[i],theta_s)
-            y_i=Y[i]
+            y_i=y[i]
             value+=np.log(proba**y_i*(1-proba)**(1-y_i))
         exp_log_lik+=value
 
