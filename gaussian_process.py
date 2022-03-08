@@ -171,6 +171,12 @@ class GaussianProcess(object):
         - log_length_scale
         - log_noise_scale
         """
+        print("get neg log arf")
+        print(log_kernel_parameters)
+        print(len(log_kernel_parameters))
+        print(*log_kernel_parameters)
+        print(len(*log_kernel_parameters))
+
 
         self.set_kernel_parameters(*log_kernel_parameters)
 
@@ -464,6 +470,8 @@ class GaussianProcess(object):
             plt.show()
 
     def get_log_marginal_likelihood(self, *log_kernel_parameters):
+
+
         return -1 * self.get_negative_log_marginal_likelihood(*log_kernel_parameters)
 
     def get_log_prior_at(self, *log_kernel_parameters):

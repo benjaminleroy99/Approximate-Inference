@@ -63,7 +63,10 @@ def expected_log_likelihood(mu: np.ndarray,
     :return: The expected log-likelihood. That expectation is calculated according to the approximated posterior
     N(mu, Sigma) by using the samples in epsilon.
     """
-    # TODO
+
+    S=len(epsilon)
+
+    for s in range(S):
 
 
 def variational_inference_logistics(X: np.ndarray,
