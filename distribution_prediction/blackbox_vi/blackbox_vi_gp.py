@@ -118,7 +118,23 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
     :return: The expected log-likelihood. That expectation is calculated according to the approximated posterior
     N(mu, Sigma) by using the samples in epsilon.
     """
-    sigma=A @ A.T
+    S=len(epsilon)
+    N,_=X.shape
+
+    exp_log_lik=0
+
+    for s in range(S):
+        theta_s=mu+ A @ epsilon[s].T
+
+        value=0
+        for i in range(N):
+            proba=sigmoid(X[i],theta_s)
+            y_i=y[i]
+            value+=np.log(proba**y_i*(1-proba)**(1-y_i))
+
+        exp_log_lik+=value
+
+    return exp_log_lik[0]/S
 
 
 def kl_div(mu: np.ndarray,
@@ -148,7 +164,7 @@ def kl_div(mu: np.ndarray,
     print("evolution value")
     value=onp.log(sigma_prior**2/onp.linalg.det(sigma))
     print(value)
-    value+=-(len(mu)+1)
+    value+=-(len(mu))
     print(value)
     value+=onp.trace((1/sigma_prior**2 * onp.eye(len(sigma)) )@ sigma)
     print(value)
@@ -214,7 +230,19 @@ def variational_inference_gp(X: np.ndarray,
         mu_old = mu
 
         #############################
-        # TODO : Complete Here for computing epsilon, mu_grad and A_grad
+
+        epsilon = onp.random.multivariate_normal(np.zeros(P), np.eye(P), num_samples_per_turn)
+
+        def loss(A, mu):
+            print("loss")
+            # print(expected_log_likelihood(mu,A,epsilon,X,y))
+            # print(kl_div(mu,A,sigma_prior))
+
+            return expected_log_marginal_likelihood(mu, A, epsilon, X, y) - kl_div(mu, A, sigma_prior)
+
+
+        A_grad, mu_grad = grad(loss, (0, 1))(A_old, mu_old)
+
         #############################
 
         # Performing a gradient descent step on A and mu

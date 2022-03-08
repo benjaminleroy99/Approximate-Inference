@@ -82,12 +82,6 @@ def expected_log_likelihood(mu: np.ndarray,
     S=len(epsilon)
     N,_=X.shape
 
-    '''
-    print("calcul de theta mu puis A puis epsilon")
-    print(f"mu is :{mu}")
-    print(f"A is : {A}")
-    print(f"epsilon is : {epsilon}")
-    '''
     exp_log_lik=0
 
     for s in range(S):
@@ -168,27 +162,14 @@ def variational_inference_logistics(X: np.ndarray,
 
         epsilon=onp.random.multivariate_normal(np.zeros(P),np.eye(P),num_samples_per_turn)
 
-        '''
-        print("epsilon is")
-        print(epsilon)
-
-        print("expected_log_likelihood")
-        print(expected_log_likelihood(mu_old,A_old,epsilon,X,y))
-
-        print("kl div")
-        print(kl_div(mu_old,A_old,sigma_prior))
-        '''
-
         def loss(A,mu):
             print("loss")
-            print(expected_log_likelihood(mu,A,epsilon,X,y))
-            print(kl_div(mu,A,sigma_prior))
+            #print(expected_log_likelihood(mu,A,epsilon,X,y))
+            #print(kl_div(mu,A,sigma_prior))
+
             return expected_log_likelihood(mu,A,epsilon,X,y)-kl_div(mu,A,sigma_prior)
 
-
-        mu_grad=grad(loss, 1)(A_old, mu_old)
-        A_grad=grad(loss, 0)(A_old, mu_old)
-
+        A_grad, mu_grad = grad(loss, (0, 1))(A_old, mu_old)
 
         #############################
 
