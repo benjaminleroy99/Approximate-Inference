@@ -41,11 +41,11 @@ def kl_div(mu: np.ndarray,
     sigma=A @ A.T
 
     print("evolution value")
-    value=onp.log(sigma_prior**2/onp.linalg.det(sigma))
+    value=onp.log10(sigma_prior**2/onp.linalg.det(sigma))
     print(value)
-    value+=-(len(mu)+1)
+    value+=-(len(mu))
     print(value)
-    value+=onp.trace((1/sigma_prior**2 * onp.eye(len(sigma)) )@ sigma)
+    value+=onp.trace((1/sigma_prior**2 * onp.eye(len(sigma)) ) @ sigma)
     print(value)
     value+= mu.T @ (1/sigma_prior**2 * onp.eye(len(mu))) @ mu
     print(value)
