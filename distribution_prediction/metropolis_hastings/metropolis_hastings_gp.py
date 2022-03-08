@@ -27,9 +27,9 @@ def get_log_upper_proba_distribution_gp(gaussian_process: GaussianProcess,
     #mean,std=GaussianProcess.get_gp_mean_std(theta)
 
 
-    #para=[para_i for para_i in theta]
+    para=[para_i for para_i in theta]
 
-    gaussian_process.get_log_marginal_likelihood(theta)
+    gaussian_process.get_log_marginal_likelihood(para)
 
     #return gaussian_process.get_log_prior_at(para)
 
