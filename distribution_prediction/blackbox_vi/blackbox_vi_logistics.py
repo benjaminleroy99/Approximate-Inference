@@ -70,7 +70,11 @@ def expected_log_likelihood(mu: np.ndarray,
     S=len(epsilon)
     N,_=X.shape
 
-    theta=mu+ A @ epsilon
+    print("calcul de theta mu puis A puis epsilon")
+    print(f"mu is :{mu}")
+    print(f"A is : {A}")
+    print(f"epsilon is : {epsilon}")
+    theta=mu+ A @ epsilon.T
 
     exp_log_lik=0
 
