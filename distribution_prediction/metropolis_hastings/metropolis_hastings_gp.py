@@ -27,14 +27,16 @@ def get_log_upper_proba_distribution_gp(gaussian_process: GaussianProcess,
     #mean,std=GaussianProcess.get_gp_mean_std(theta)
 
 
-    para=[para_i for para_i in theta]
+    #para=[para_i for para_i in theta]
 
-    return gaussian_process.get_log_prior_at(para)
+    gaussian_process.get_log_marginal_likelihood(theta)
 
-    '''
+    #return gaussian_process.get_log_prior_at(para)
+
+
 
     return gaussian_process.get_log_prior_at(theta)
-    '''
+
 def metropolis_hastings_gaussian_process(gp: GaussianProcess,
                                          number_expected_iterations: int,
                                          sigma_exploration_mh: float,
