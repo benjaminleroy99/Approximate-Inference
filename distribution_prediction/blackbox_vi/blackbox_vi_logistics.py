@@ -156,7 +156,7 @@ def variational_inference_logistics(X: np.ndarray,
 
 
         epsilon=onp.random.multivariate_normal(np.zeros(num_samples_per_turn),np.eye(num_samples_per_turn),num_samples_per_turn)
-        L=expected_log_likelihood(mu,A_old,epsilon,X,y)-kl_div(mu,A_old,sigma_prior)
+        L=expected_log_likelihood(mu_old,A_old,epsilon,X,y)-kl_div(mu_old,A_old,sigma_prior)
 
 
         print(f"grad de la L :{grad(L)}")
