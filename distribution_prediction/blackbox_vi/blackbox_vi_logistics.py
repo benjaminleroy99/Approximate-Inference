@@ -40,7 +40,7 @@ def kl_div(mu: np.ndarray,
     value=np.log(sigma_prior**2/np.linalg.det(sigma))
     value+=-len(mu)
     value+=np.trace(1/sigma_prior**2 * np.eye(len(sigma)) @ sigma)
-    value+=1/sigma_prior**2 * (mu.T @ mu)
+    value+= mu.T @ (1/sigma_prior**2 * np.eye(len(mu))) @ mu
 
     return  value/2
 
