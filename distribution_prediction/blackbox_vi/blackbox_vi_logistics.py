@@ -37,6 +37,7 @@ def kl_div(mu: np.ndarray,
     """
 
     print(f"mu isss:  {mu}  ")
+    print(f"A isss:  {A}  ")
 
     sigma=A * A.T
 
