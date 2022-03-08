@@ -52,7 +52,7 @@ def kl_div(mu: np.ndarray,
     value=value/2
     print(value)
 
-    return  value[0][0]
+    return value[0][0]
 
 
 def expected_log_likelihood(mu: np.ndarray,
@@ -156,6 +156,17 @@ def variational_inference_logistics(X: np.ndarray,
 
 
         epsilon=onp.random.multivariate_normal(np.zeros(num_samples_per_turn),np.eye(num_samples_per_turn),num_samples_per_turn)
+
+        print("epsilon is")
+        print(epsilon)
+
+        print("expected_log_likelihood")
+        print(expected_log_likelihood(mu_old,A_old,epsilon,X,y))
+
+        print("kl div")
+        print(kl_div(mu_old,A_old,sigma_prior))
+
+
         L=expected_log_likelihood(mu_old,A_old,epsilon,X,y)-kl_div(mu_old,A_old,sigma_prior)
 
 
