@@ -66,7 +66,7 @@ def expected_log_likelihood(mu: np.ndarray,
 
     S=len(epsilon)
 
-    for s in range(S):
+    #for s in range(S):
 
 
 def variational_inference_logistics(X: np.ndarray,
