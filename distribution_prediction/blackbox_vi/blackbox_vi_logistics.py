@@ -86,6 +86,7 @@ def expected_log_likelihood(mu: np.ndarray,
 
     for s in range(S):
         theta_s=mu+ A @ epsilon[s].T
+
         value=0
         for i in range(N):
             proba=sigmoid(X[i],theta_s)
@@ -150,8 +151,12 @@ def variational_inference_logistics(X: np.ndarray,
         #compute espilon mu_grad et A_grad
 
 
-        epsilon=onp.random.multivariate_normal(0,np.eye(nb_iterations),nb_iterations)
+        epsilon=onp.random.multivariate_normal(0,np.eye(num_samples_per_turn),num_samples_per_turn)
+        L=expected_log_likelihood(mu,A_old,epsilon,X,y)-kl_div(mu,A_old,sigma_prior)
 
+
+        print(f"grad de la L :{grad(L)}")
+        A_grad,mu_grad=grad(L)
 
         #############################
 
