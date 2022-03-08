@@ -40,12 +40,19 @@ def kl_div(mu: np.ndarray,
 
     sigma=A @ A.T
 
-    value=np.log(sigma_prior**2/np.linalg.det(sigma))
+    print("evolution value")
+    value=onp.log(sigma_prior**2/onp.linalg.det(sigma))
+    print(value)
     value+=-len(mu)
-    value+=np.trace(1/sigma_prior**2 * np.eye(len(sigma)) @ sigma)
-    value+= mu.T @ (1/sigma_prior**2 * np.eye(len(mu))) @ mu
+    print(value)
+    value+=onp.trace((1/sigma_prior**2 * onp.eye(len(sigma)) )@ sigma)
+    print(value)
+    value+= mu.T @ (1/sigma_prior**2 * onp.eye(len(mu))) @ mu
+    print(value)
+    value=value/2
+    print(value)
 
-    return  value/2
+    return  value
 
 
 def expected_log_likelihood(mu: np.ndarray,
@@ -141,7 +148,12 @@ def variational_inference_logistics(X: np.ndarray,
         A_old = A
 
         #############################
-        # TODO : Complete Here for computing epsilon, mu_grad and A_grad
+        #compute espilon mu_grad et A_grad
+
+
+        epsilon=onp.random.multivariate_normal(0,np.eye(nb_iterations),nb_iterations)
+
+
         #############################
 
         # Performing a gradient descent step on A and mu
