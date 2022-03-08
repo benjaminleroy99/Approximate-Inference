@@ -120,7 +120,6 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
     """
     S=len(epsilon)
     N,_=X.shape
-
     exp_log_lik=0
 
     for s in range(S):
