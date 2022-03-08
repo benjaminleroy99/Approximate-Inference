@@ -38,10 +38,10 @@ def kl_div(mu: np.ndarray,
 
     print(f"mu isss:  {mu}  ")
 
-    sigma=A @ A.T
+    sigma=A * A.T
 
     print("evolution value")
-    value=onp.log10(sigma_prior**2/onp.linalg.det(sigma))
+    value=onp.log(sigma_prior**2/onp.linalg.det(sigma))
     print(value)
     value+=-(len(mu))
     print(value)
