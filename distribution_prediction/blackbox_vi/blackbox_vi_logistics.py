@@ -85,7 +85,11 @@ def expected_log_likelihood(mu: np.ndarray,
     exp_log_lik=0
 
     for s in range(S):
-        theta_s=mu+ A @ epsilon[s].T
+
+        print("claucl theta_s")
+        print(mu)
+        print((A @ epsilon[s].T).T)
+        theta_s=mu+ (A @ epsilon[s].T).T
 
         value=0
         for i in range(N):
