@@ -29,17 +29,13 @@ def get_log_upper_proba_distribution_gp(gaussian_process: GaussianProcess,
     print("theta is a l'otigine")
     print(theta)
 
-    log_upper=0
     for theta_i in theta:
-
-
         gaussian_process._kernel.set_parameters(theta_i)
-        log_upper+=gaussian_process.get_log_prior_at(theta_i)
+        log_upper=gaussian_process.get_log_prior_at(theta_i)
+        print("log upper bound")
+        yield log_upper
 
 
-    print("log upper bound")
-    print(log_upper)
-    return log_upper
 
 def metropolis_hastings_gaussian_process(gp: GaussianProcess,
                                          number_expected_iterations: int,
