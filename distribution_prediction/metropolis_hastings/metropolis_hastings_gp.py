@@ -76,7 +76,7 @@ def metropolis_hastings_gaussian_process(gp: GaussianProcess,
     while len(list_kept_thetas) < number_expected_iterations:
         u = np.random.rand()  # Random number used for deciding if newly_sampled_theta should be accepted or not
 
-        newly_sampled_theta=np.random.multivariate_normal(first_theta,sigma_exploration_mh**2*np.eye(X.shape[1]))
+        newly_sampled_theta=np.random.multivariate_normal(first_theta,sigma_exploration_mh**2*np.eye(len(first_theta)))
 
 
         p_theta_prime=np.exp(get_log_upper_proba_distribution(gp,newly_sampled_theta))
