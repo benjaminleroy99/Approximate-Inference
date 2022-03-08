@@ -41,10 +41,13 @@ def kl_div(mu: np.ndarray,
 
     sigma=A * A.T
 
+    print(f"sigma isss:  {sigma}  ")
+
+
     print("evolution value")
     value=onp.log(sigma_prior**2/onp.linalg.det(sigma))
     print(value)
-    value+=-(len(mu)+len(A))
+    value-=len(mu)
     print(value)
     value+=onp.trace((1/sigma_prior**2 * onp.eye(len(sigma)) ) @ sigma)
     print(value)
@@ -99,7 +102,9 @@ def expected_log_likelihood(mu: np.ndarray,
             value+=np.log(proba**y_i*(1-proba)**(1-y_i))
         exp_log_lik+=value
 
-    return exp_log_lik/S
+    print("expected log lik")
+    print(exp_log_lik)
+    return exp_log_lik[0]/S
 
 
 
