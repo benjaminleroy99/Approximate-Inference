@@ -65,8 +65,24 @@ def expected_log_likelihood(mu: np.ndarray,
     """
 
     S=len(epsilon)
+    N,_=X.shape
 
-    #for s in range(S):
+    theta=mu+ A @ epsilon
+
+    exp_log_lik=0
+
+    for s in S:
+        theta_s=theta[s]
+        value=0
+        for i in range(N):
+            proba=sigmoid(X[i],theta_s)
+            y_i=Y[i]
+            value+=np.log(proba**y_i*(1-proba)**(1-y_i))
+        exp_log_lik+=value
+
+    return exp_log_lik/S
+
+
 
 
 def variational_inference_logistics(X: np.ndarray,
