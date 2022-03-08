@@ -107,7 +107,7 @@ def metropolis_hastings_gaussian_process(gp: GaussianProcess,
 
 
 
-        if p_theta_prime[0]/(p_theta_t[0])>=u:
+        if (p_theta_prime/p_theta_t)>=u:
             first_theta=newly_sampled_theta
             list_kept_thetas.append(first_theta)
             is_sample_accepted=True
