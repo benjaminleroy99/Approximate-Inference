@@ -77,7 +77,7 @@ def expected_log_likelihood(mu: np.ndarray,
         print(mu)
         print("A @ epsilon[s].T")
         print(A @ epsilon[s].T)
-        theta_s=mu+ A @ epsilon[s].T
+        theta_s=mu+ (A @ epsilon[s].T).T
         print(f"so theta_f is {theta_s}")
 
         value=0
