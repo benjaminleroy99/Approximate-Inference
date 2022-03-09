@@ -148,7 +148,7 @@ def plot_vi_gp(obj, mu, Sigma, X, y):
         sample_gp_parameter = onp.random.multivariate_normal(mu, Sigma)
         gp.set_kernel_parameters(*sample_gp_parameter.flatten())
         function_sample = gp.get_sample(xx.reshape((-1, 1)))
-        plt.plot(xx, function_sample, alpha=0.3, c='C0', interactive=False)
+        plt.plot(xx, function_sample, alpha=0.3, c='C0')
         plt.scatter(gp.array_dataset,
                     gp.array_objective_function_values,
                     c='m',

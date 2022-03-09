@@ -251,7 +251,6 @@ def variational_inference_gp(X: np.ndarray,
     A_grad = None
 
     while counter < number_iterations:
-        print(f"counter is : {counter}")
         A_old = A
         mu_old = mu
 
@@ -261,23 +260,7 @@ def variational_inference_gp(X: np.ndarray,
 
         epsilon=onp.random.multivariate_normal(np.zeros(P),np.eye(P),num_samples_per_turn)
 
-        def loss(A,mu):
-            #print("loss")
-            exp_llkd=expected_log_marginal_likelihood(mu,A,epsilon,X,y)
-
-
-            kl_divv=kl_div(mu,A,sigma_prior)
-            #print("kl_div")
-            #print(kl_divv)
-
-
-            #print("exp_llkd")
-            #print(exp_llkd)
-
-
-            return exp_llkd-kl_divv
-
-        A_grad, mu_grad = grad(loss, (0, 1))(A_old, mu_old)
+        A_grad, mu_grad = grad(loss, (0, 1))(A_old, mu_old,epsilon,X,y,sigma_prior)
 
         #############################
 
@@ -293,6 +276,14 @@ def variational_inference_gp(X: np.ndarray,
 
         yield mu, A.dot(A.T), A, mu_grad, A_grad, epsilon
 
+
+def loss(A,mu,epsilon,X,y,sigma_prior):
+
+    exp_llkd=expected_log_marginal_likelihood(mu,A,epsilon,X,y)
+
+    kl_divv=kl_div(mu,A,sigma_prior)
+
+    return exp_llkd-kl_divv
 
 if __name__ == '__main__':
     onp.random.seed(207)
