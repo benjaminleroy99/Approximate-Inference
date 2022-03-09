@@ -32,8 +32,8 @@ def get_log_upper_proba_distribution_gp(gaussian_process: GaussianProcess,
 
     log_prior = gaussian_process.get_log_prior_at(*theta)
 
-    print(f"values marg et prior are : {log_marg,log_prior}")
-    print(np.exp(log_prior+log_marg))
+    #print(f"values marg et prior are : {log_marg,log_prior}")
+    #print(np.exp(log_prior+log_marg))
     return log_prior+log_marg
 '''
     log_upper=0
