@@ -149,18 +149,21 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
         distances_array=get_distances_array(X, X)
         #print(distances_array)
         #print("aquiii")
-        #print(theta_s)
-        theta_s=[np.exp(theta_s_i) for theta_s_i in theta_s]
-        #print("ici ensuite")
+
         theta_s = theta_s[0]
-        #print(theta_s)
+
+        for i in range(6):
+            if i!=5 and i!=1:
+
+                theta_s=theta_s.at[i].set(np.exp(theta_s[i])**2)
+                #tt[i]=np.exp(theta_s[i])**2
+            elif i==1:
+                theta_s=theta_s.at[i].set(np.exp(theta_s[i]))
+
 
 
         log_marg_llkd=_get_log_marginal_likelihood_gp(theta_s[0],theta_s[1],theta_s[2],theta_s[3],theta_s[4],theta_s[5],X,y,distances_array)
         #log_marg_llkd=_get_log_marginal_likelihood_gp(*theta_s,X,y,distances_array)
-
-
-
 
         exp_log_lik+=log_marg_llkd
 
