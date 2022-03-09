@@ -128,7 +128,7 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
     print(X)
 
     for s in range(S):
-        theta_s=mu+ A @ epsilon[s].T
+        theta_s=mu.T + A @ epsilon[s].T
 
         value=0
         for i in range(N):
@@ -141,7 +141,7 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
 
         exp_log_lik+=value
         proba_log_prior=np.log(1/np.sqrt(2*np.pi)**(len(A))*np.exp(-0.5*np.linalg.norm(theta_s)))
-
+        exp_log_lik+=(value+proba_log_prior)
 
 
     return exp_log_lik[0]/S
