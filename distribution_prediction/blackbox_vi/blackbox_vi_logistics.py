@@ -36,26 +36,27 @@ def kl_div(mu: np.ndarray,
     :return: the value of the KL divergence
     """
 
-    print(f"mu isss:  {mu}  ")
-    print(f"A isss:  {A}  ")
+    #print(f"mu isss:  {mu}  ")
+    #print(f"A isss:  {A}  ")
 
     sigma=A * A.T
 
 
-    print(f"sigma isss:  {sigma}  ")
+    #print(f"sigma isss:  {sigma}  ")
+    #print(f"type sigma is : {type(sigma)}")
+    #print(f"sigma value try: {sigma.toarray()}")
 
-
-    print("evolution value")
-    value=onp.log(sigma_prior**2/onp.linalg.det(sigma))
-    print(value)
+    #print("evolution value")
+    value=np.log(sigma_prior**2/np.linalg.det(sigma))
+    #print(value)
     value-=len(mu)
-    print(value)
-    value+=onp.trace((1/sigma_prior**2 * onp.eye(len(sigma)) ) @ sigma)
-    print(value)
-    value+= mu.T @ (1/sigma_prior**2 * onp.eye(len(mu))) @ mu
-    print(value)
+    #print(value)
+    value+=np.trace((1/sigma_prior**2 * np.eye(len(sigma)) ) @ sigma)
+    #print(value)
+    value+= mu.T @ (1/sigma_prior**2 * np.eye(len(mu))) @ mu
+    #print(value)
     value=value/2
-    print(value)
+    #print(value)
 
     return value[0][0]
 
@@ -87,7 +88,9 @@ def expected_log_likelihood(mu: np.ndarray,
     for s in range(S):
 
         #print("claucl theta_s")
+        #print("mu")
         #print(mu)
+        #print("A @ epsilon[s].T")
         #print(A @ epsilon[s].T)
         theta_s=mu+ A @ epsilon[s].T
         #print(f"so theta_f is {theta_s}")
@@ -163,11 +166,19 @@ def variational_inference_logistics(X: np.ndarray,
         epsilon=onp.random.multivariate_normal(np.zeros(P),np.eye(P),num_samples_per_turn)
 
         def loss(A,mu):
-            print("loss")
-            #print(expected_log_likelihood(mu,A,epsilon,X,y))
-            #print(kl_div(mu,A,sigma_prior))
+            #print("loss")
 
-            return expected_log_likelihood(mu,A,epsilon,X,y)-kl_div(mu,A,sigma_prior)
+            kl_divv=kl_div(mu,A,sigma_prior)
+            #print("kl_div")
+            #print(kl_divv)
+
+            exp_llkd=expected_log_likelihood(mu,A,epsilon,X,y)
+
+            #print("exp_llkd")
+            #print(exp_llkd)
+
+
+            return exp_llkd-kl_divv
 
         A_grad, mu_grad = grad(loss, (0, 1))(A_old, mu_old)
 
