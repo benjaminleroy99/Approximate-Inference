@@ -122,11 +122,11 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
     N,_=X.shape
     exp_log_lik=0
 
-    print("XXXX")
-    print(X)
+    #print("XXXX")
+    #print(X)
 
     for s in range(S):
-
+        '''
         print("pbbbbb")
         print("epsilon")
         print(epsilon[s])
@@ -136,28 +136,30 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
         print("mu")
 
         print(mu)
+        '''
         theta_s=mu + A @ epsilon[s].T
+        '''
         print("theta_s")
         print(theta_s)
+        '''
 
 
 
 
         distances_array=get_distances_array(X, X)
-        print(distances_array)
-        print("aquiii")
-        print(theta_s)
+        #print(distances_array)
+        #print("aquiii")
+        #print(theta_s)
         theta_s=[np.exp(theta_s_i) for theta_s_i in theta_s]
-        print("ici ensuite")
+        #print("ici ensuite")
         theta_s = theta_s[0]
-        print(theta_s)
+        #print(theta_s)
 
 
         log_marg_llkd=_get_log_marginal_likelihood_gp(theta_s[0],theta_s[1],theta_s[2],theta_s[3],theta_s[4],theta_s[5],X,y,distances_array)
         #log_marg_llkd=_get_log_marginal_likelihood_gp(*theta_s,X,y,distances_array)
 
-        print("log_marg_llkd")
-        print(log_marg_llkd)
+
 
 
         exp_log_lik+=log_marg_llkd
@@ -190,24 +192,11 @@ def kl_div(mu: np.ndarray,
 
     sigma=A_chol @ A_chol.T
 
-
-    #print(f"sigma isss:  {sigma}  ")
-    #print(f"type sigma is : {type(sigma)}")
-    #print(f"sigma value try: {sigma.toarray()}")
-
-    print("evolution value")
     value=np.log(np.linalg.det(sigma_prior**2 * np.eye(len(sigma)))/np.linalg.det(sigma))
-    #value=np.log(sigma_prior**2/np.linalg.det(sigma))
-
-    print(value)
     value-=len(mu)
-    print(value)
     value+=np.trace((1/sigma_prior**2 * np.eye(len(sigma)) ) @ sigma)
-    print(value)
     value+= mu.T @ (1/sigma_prior**2 * np.eye(len(mu))) @ mu
-    print(value)
     value=value/2
-    print(value)
 
     return value[0][0]
 
@@ -260,8 +249,9 @@ def variational_inference_gp(X: np.ndarray,
     epsilon = None
     mu_grad = None
     A_grad = None
-    '''
+
     while counter < number_iterations:
+        print(f"counter is : {counter}")
         A_old = A
         mu_old = mu
 
@@ -303,7 +293,7 @@ def variational_inference_gp(X: np.ndarray,
 
         yield mu, A.dot(A.T), A, mu_grad, A_grad, epsilon
 
-    '''
+
 if __name__ == '__main__':
     onp.random.seed(207)
     obj = LinearSin(0.5)
