@@ -3,6 +3,7 @@ import jax.scipy
 import numpy as onp
 from jax import grad
 from jax.config import config
+from distribution_prediction.blackbox_vi.blackbox_vi_logistics import sigmoid
 
 from distribution_prediction.blackbox_vi.utils_plots import plot_vi_gp
 
@@ -123,11 +124,17 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
     N,_=X.shape
     exp_log_lik=0
 
+    print("XXXX")
+    print(X)
+
     for s in range(S):
         theta_s=mu+ A @ epsilon[s].T
 
         value=0
         for i in range(N):
+            print("hereeee")
+            print(X[i])
+            print(theta_s)
             proba=sigmoid(X[i],theta_s)
             y_i=y[i]
             value+=np.log(proba**y_i*(1-proba)**(1-y_i))
