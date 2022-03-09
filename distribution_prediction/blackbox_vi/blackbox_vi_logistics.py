@@ -39,7 +39,7 @@ def kl_div(mu: np.ndarray,
     #print(f"mu isss:  {mu}  ")
     #print(f"A isss:  {A}  ")
 
-    sigma=A * A.T
+    sigma=A @ A.T
 
 
     #print(f"sigma isss:  {sigma}  ")
@@ -47,7 +47,9 @@ def kl_div(mu: np.ndarray,
     #print(f"sigma value try: {sigma.toarray()}")
 
     print("evolution value")
-    value=np.log(np.linalg.det(sigma_prior**2 * np.eye(len(sigma)))/np.linalg.det(sigma))
+    #value=np.log(np.linalg.det(sigma_prior**2 * np.eye(len(sigma)))/np.linalg.det(sigma))
+    #value=np.log(sigma_prior**2/np.linalg.det(sigma))
+
     print(value)
     value-=len(mu)
     print(value)
