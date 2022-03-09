@@ -102,7 +102,10 @@ def expected_log_likelihood(mu: np.ndarray,
             value+=np.log(proba**y_i*(1-proba)**(1-y_i))
         print("value added")
         print(value)
-        exp_log_lik+=value
+
+        proba_log_prior=np.log(1/np.sqrt(2*np.pi)*np.exp(-0.5*np.linalg.norm(theta_s)))
+
+        exp_log_lik+=(value+proba_log_prior)
 
     #print("expected log lik")
     #print(exp_log_lik)
