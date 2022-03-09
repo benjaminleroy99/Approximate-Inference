@@ -47,7 +47,7 @@ def kl_div(mu: np.ndarray,
     #print(f"sigma value try: {sigma.toarray()}")
 
     #print("evolution value")
-    value=np.log(sigma_prior**2/np.linalg.det(sigma))
+    value=np.log(sigma_prior**(2*len(sigma))/np.linalg.det(sigma))
     #print(value)
     value-=len(mu)
     #print(value)
@@ -100,8 +100,8 @@ def expected_log_likelihood(mu: np.ndarray,
             proba=sigmoid(X[i],theta_s)
             y_i=y[i]
             value+=np.log(proba**y_i*(1-proba)**(1-y_i))
-        #print("value added")
-        #print(value)
+        print("value added")
+        print(value)
         exp_log_lik+=value
 
     #print("expected log lik")
