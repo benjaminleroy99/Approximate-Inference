@@ -3,7 +3,6 @@ import jax.scipy
 import numpy as onp
 from jax import grad
 from jax.config import config
-from distribution_prediction.blackbox_vi.blackbox_vi_logistics import sigmoid
 
 from distribution_prediction.blackbox_vi.utils_plots import plot_vi_gp
 
@@ -11,7 +10,6 @@ config.update("jax_debug_nans", True)
 
 from objective_functions.sin import LinearSin
 
-TF_CPP_MIN_LOG_LEVEL=0
 
 def get_distances_array(X_1, X_2):
     """
@@ -128,23 +126,46 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
     print(X)
 
     for s in range(S):
-        theta_s=mu.T + A @ epsilon[s].T
 
-        value=0
-        for i in range(N):
-            print("hereeee")
-            print(X[i])
-            print(theta_s)
-            proba=sigmoid(X[i],theta_s)
-            y_i=y[i]
-            value+=np.log(proba**y_i*(1-proba)**(1-y_i))
+        print("pbbbbb")
+        print("epsilon")
+        print(epsilon[s])
+        print("calcul")
 
-        exp_log_lik+=value
-        proba_log_prior=np.log(1/np.sqrt(2*np.pi)**(len(A))*np.exp(-0.5*np.linalg.norm(theta_s)))
-        exp_log_lik+=(value+proba_log_prior)
+        print(A @ epsilon[s].T)
+        print("mu")
+
+        print(mu)
+        theta_s=mu + A @ epsilon[s].T
+        print("theta_s")
+        print(theta_s)
 
 
-    return exp_log_lik[0]/S
+
+
+        distances_array=get_distances_array(X, X)
+        print(distances_array)
+        print("aquiii")
+        print(theta_s)
+        theta_s=[np.exp(theta_s_i) for theta_s_i in theta_s]
+        print("ici ensuite")
+        theta_s = theta_s[0]
+        print(theta_s)
+
+
+        log_marg_llkd=_get_log_marginal_likelihood_gp(theta_s[0],theta_s[1],theta_s[2],theta_s[3],theta_s[4],theta_s[5],X,y,distances_array)
+        #log_marg_llkd=_get_log_marginal_likelihood_gp(*theta_s,X,y,distances_array)
+
+        print("log_marg_llkd")
+        print(log_marg_llkd)
+
+
+        exp_log_lik+=log_marg_llkd
+
+    exp_log_lik=exp_log_lik/S
+    print("exp_log_lik")
+    print(exp_log_lik)
+    return exp_log_lik
 
 
 def kl_div(mu: np.ndarray,
@@ -239,7 +260,7 @@ def variational_inference_gp(X: np.ndarray,
     epsilon = None
     mu_grad = None
     A_grad = None
-
+    '''
     while counter < number_iterations:
         A_old = A
         mu_old = mu
@@ -252,12 +273,13 @@ def variational_inference_gp(X: np.ndarray,
 
         def loss(A,mu):
             #print("loss")
+            exp_llkd=expected_log_marginal_likelihood(mu,A,epsilon,X,y)
+
 
             kl_divv=kl_div(mu,A,sigma_prior)
             #print("kl_div")
             #print(kl_divv)
 
-            exp_llkd=expected_log_marginal_likelihood(mu,A,epsilon,X,y)
 
             #print("exp_llkd")
             #print(exp_llkd)
@@ -281,7 +303,7 @@ def variational_inference_gp(X: np.ndarray,
 
         yield mu, A.dot(A.T), A, mu_grad, A_grad, epsilon
 
-
+    '''
 if __name__ == '__main__':
     onp.random.seed(207)
     obj = LinearSin(0.5)
