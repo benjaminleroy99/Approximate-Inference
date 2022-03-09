@@ -160,8 +160,6 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
             elif i==1:
                 theta_s=theta_s.at[i].set(np.exp(theta_s[i]))
 
-
-
         log_marg_llkd=_get_log_marginal_likelihood_gp(theta_s[0],theta_s[1],theta_s[2],theta_s[3],theta_s[4],theta_s[5],X,y,distances_array)
         #log_marg_llkd=_get_log_marginal_likelihood_gp(*theta_s,X,y,distances_array)
 

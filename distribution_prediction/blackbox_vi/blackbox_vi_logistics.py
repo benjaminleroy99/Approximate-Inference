@@ -69,7 +69,7 @@ def expected_log_likelihood(mu: np.ndarray,
     N,_=X.shape
 
     exp_log_lik=0
-
+    '''
     for s in range(S):
 
         theta_s=mu.T+ (A @ epsilon[s].T)
@@ -82,8 +82,19 @@ def expected_log_likelihood(mu: np.ndarray,
 
 
         exp_log_lik+=value
+    '''
+    for s in range(S):
 
-    return exp_log_lik[0]/S
+        theta_s=mu.T+ (A @ epsilon[s].T)
+
+
+        proba=sigmoid(X,theta_s)
+        y_i=y
+        value=np.log(proba**y_i*(1-proba)**(1-y_i))
+
+        exp_log_lik+=np.sum(value)
+
+    return exp_log_lik/S
 
 
 
@@ -131,13 +142,10 @@ def variational_inference_logistics(X: np.ndarray,
     epsilon = None
     mu_grad = None
     A_grad = None
-    '''
+
     while counter < number_iterations:
-        print(f"counter is : {counter}")
         mu_old = mu
         A_old = A
-        print("ild mu")
-        print(mu_old)
 
         #############################
         #compute espilon mu_grad et A_grad
@@ -146,10 +154,6 @@ def variational_inference_logistics(X: np.ndarray,
 
         A_grad, mu_grad = grad(loss, (0, 1))(A_old, mu_old,sigma_prior,epsilon,X,y)
 
-        print("A_gradddd")
-        print(A_grad)
-        print("mu_gradddd")
-        print(mu_grad)
 
         #############################
 
@@ -166,7 +170,7 @@ def variational_inference_logistics(X: np.ndarray,
         yield mu, A.dot(A.T), A, mu_grad, A_grad, epsilon
 
 
-    '''
+
 def loss(A, mu,sigma_prior,epsilon,X,y):
 
     kl_divv = kl_div(mu, A, sigma_prior)
