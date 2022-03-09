@@ -72,28 +72,17 @@ def expected_log_likelihood(mu: np.ndarray,
 
     for s in range(S):
 
-        print("claucl theta_s")
-        print("mu")
-        print(mu)
-        print("A @ epsilon[s].T")
-        print(A @ epsilon[s].T)
         theta_s=mu.T+ (A @ epsilon[s].T)
-        print(f"so theta_f is {theta_s}")
 
         value=0
         for i in range(N):
             proba=sigmoid(X[i],theta_s)
             y_i=y[i]
             value+=np.log(proba**y_i*(1-proba)**(1-y_i))
-        print("value added")
-        print(value)
 
-        proba_log_prior=np.log(1/np.sqrt(2*np.pi)**(len(A))*np.exp(-0.5*np.linalg.norm(theta_s)))
-        #proba_log_prior=0
-        exp_log_lik+=(value+proba_log_prior)
 
-    print("expected log lik")
-    print(exp_log_lik)
+        exp_log_lik+=value
+
     return exp_log_lik[0]/S
 
 
