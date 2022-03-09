@@ -140,6 +140,9 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
             value+=np.log(proba**y_i*(1-proba)**(1-y_i))
 
         exp_log_lik+=value
+        proba_log_prior=np.log(1/np.sqrt(2*np.pi)**(len(A))*np.exp(-0.5*np.linalg.norm(theta_s)))
+
+
 
     return exp_log_lik[0]/S
 
@@ -164,16 +167,21 @@ def kl_div(mu: np.ndarray,
     :return: the value of the KL divergence
     """
 
-    print(f"mu isss:  {mu}  ")
-
     sigma=A_chol @ A_chol.T
 
+
+    #print(f"sigma isss:  {sigma}  ")
+    #print(f"type sigma is : {type(sigma)}")
+    #print(f"sigma value try: {sigma.toarray()}")
+
     print("evolution value")
-    value=np.log(sigma_prior**2/np.linalg.det(sigma))
+    value=np.log(np.linalg.det(sigma_prior**2 * np.eye(len(sigma)))/np.linalg.det(sigma))
+    #value=np.log(sigma_prior**2/np.linalg.det(sigma))
+
     print(value)
-    value+=-(len(mu))
+    value-=len(mu)
     print(value)
-    value+=np.trace((1/sigma_prior**2 * np.eye(len(sigma)) )@ sigma)
+    value+=np.trace((1/sigma_prior**2 * np.eye(len(sigma)) ) @ sigma)
     print(value)
     value+= mu.T @ (1/sigma_prior**2 * np.eye(len(mu))) @ mu
     print(value)
