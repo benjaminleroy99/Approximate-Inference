@@ -157,7 +157,7 @@ def variational_inference_logistics(X: np.ndarray,
     epsilon = None
     mu_grad = None
     A_grad = None
-    '''
+
     while counter < number_iterations:
         print(f"counter is : {counter}")
         mu_old = mu
@@ -166,25 +166,9 @@ def variational_inference_logistics(X: np.ndarray,
         #############################
         #compute espilon mu_grad et A_grad
 
-
         epsilon=onp.random.multivariate_normal(np.zeros(P),np.eye(P),num_samples_per_turn)
 
-        def loss(A,mu):
-            #print("loss")
-
-            kl_divv=kl_div(mu,A,sigma_prior)
-            #print("kl_div")
-            #print(kl_divv)
-
-            exp_llkd=expected_log_likelihood(mu,A,epsilon,X,y)
-
-            #print("exp_llkd")
-            #print(exp_llkd)
-
-
-            return exp_llkd-kl_divv
-
-        A_grad, mu_grad = grad(loss, (0, 1))(A_old, mu_old)
+        A_grad, mu_grad = grad(loss, (0, 1))(A_old, mu_old,sigma_prior,epsilon,X,y)
 
         #############################
 
@@ -199,7 +183,16 @@ def variational_inference_logistics(X: np.ndarray,
             print(f"counter: {counter} - {onp.max((onp.linalg.norm(mu_old - mu), onp.linalg.norm(A_old - A)))}\r")
 
         yield mu, A.dot(A.T), A, mu_grad, A_grad, epsilon
-    '''
+
+
+
+def loss(A, mu,sigma_prior,epsilon,X,y):
+
+    kl_divv = kl_div(mu, A, sigma_prior)
+
+    exp_llkd = expected_log_likelihood(mu, A, epsilon, X, y)
+
+    return exp_llkd - kl_divv
 
 if __name__ == '__main__':
     plot_vi_logistics(interactive=False,
