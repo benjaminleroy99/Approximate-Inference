@@ -151,9 +151,7 @@ def variational_inference_logistics(X: np.ndarray,
         #compute espilon mu_grad et A_grad
 
         epsilon=onp.random.multivariate_normal(np.zeros(P),np.eye(P),num_samples_per_turn)
-
         A_grad, mu_grad = grad(loss, (0, 1))(A_old, mu_old,sigma_prior,epsilon,X,y)
-
 
         #############################
 
