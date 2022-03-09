@@ -76,7 +76,7 @@ def plot_vi_logistics(number_points_per_class, interactive=False, interval_plot=
         ax2.set_title("Two contour plots respectively showing\n"
                       "The prior and the approximated posterior distributions")
 
-        plt.pause(0.001)
+        #plt.pause(0.001)
         if interactive:
             if np.size(predictions):
                 colorbar.remove()

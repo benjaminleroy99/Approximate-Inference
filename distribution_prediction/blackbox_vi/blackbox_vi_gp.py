@@ -10,6 +10,7 @@ config.update("jax_debug_nans", True)
 
 from objective_functions.sin import LinearSin
 
+TF_CPP_MIN_LOG_LEVEL=0
 
 def get_distances_array(X_1, X_2):
     """
