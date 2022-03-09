@@ -35,30 +35,13 @@ def kl_div(mu: np.ndarray,
     N(mean=0, variance=(sigma_prior**2) I)
     :return: the value of the KL divergence
     """
-
-    #print(f"mu isss:  {mu}  ")
-    #print(f"A isss:  {A}  ")
-
     sigma=A @ A.T
 
-
-    #print(f"sigma isss:  {sigma}  ")
-    #print(f"type sigma is : {type(sigma)}")
-    #print(f"sigma value try: {sigma.toarray()}")
-
-    print("evolution value")
     value=np.log(np.linalg.det(sigma_prior**2 * np.eye(len(sigma)))/np.linalg.det(sigma))
-    #value=np.log(sigma_prior**2/np.linalg.det(sigma))
-
-    print(value)
     value-=len(mu)
-    print(value)
     value+=np.trace((1/sigma_prior**2 * np.eye(len(sigma)) ) @ sigma)
-    print(value)
     value+= mu.T @ (1/sigma_prior**2 * np.eye(len(mu))) @ mu
-    print(value)
     value=value/2
-    print(value)
 
     return value[0][0]
 
@@ -89,28 +72,28 @@ def expected_log_likelihood(mu: np.ndarray,
 
     for s in range(S):
 
-        #print("claucl theta_s")
-        #print("mu")
-        #print(mu)
-        #print("A @ epsilon[s].T")
-        #print(A @ epsilon[s].T)
+        print("claucl theta_s")
+        print("mu")
+        print(mu)
+        print("A @ epsilon[s].T")
+        print(A @ epsilon[s].T)
         theta_s=mu+ A @ epsilon[s].T
-        #print(f"so theta_f is {theta_s}")
+        print(f"so theta_f is {theta_s}")
 
         value=0
         for i in range(N):
             proba=sigmoid(X[i],theta_s)
             y_i=y[i]
             value+=np.log(proba**y_i*(1-proba)**(1-y_i))
-        #print("value added")
-        #print(value)
+        print("value added")
+        print(value)
 
         proba_log_prior=np.log(1/np.sqrt(2*np.pi)**(len(A))*np.exp(-0.5*np.linalg.norm(theta_s)))
 
         exp_log_lik+=(value+proba_log_prior)
 
-    #print("expected log lik")
-    #print(exp_log_lik)
+    print("expected log lik")
+    print(exp_log_lik)
     return exp_log_lik[0]/S
 
 
