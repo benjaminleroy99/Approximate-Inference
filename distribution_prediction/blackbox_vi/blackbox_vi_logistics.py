@@ -98,7 +98,6 @@ def expected_log_likelihood(mu: np.ndarray,
 
 
 
-
 def variational_inference_logistics(X: np.ndarray,
                                     y: np.ndarray,
                                     num_samples_per_turn: int,
