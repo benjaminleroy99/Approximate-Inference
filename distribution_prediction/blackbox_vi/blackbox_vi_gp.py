@@ -122,7 +122,7 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
     N,_=X.shape
     exp_log_lik=0
 
-    sigma= A @ A.T
+    sigma= A * A.T
 
     for s in range(S):
 
@@ -133,6 +133,13 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
 
         theta_s = theta_s[0]
 
+        prior = 1 / np.sqrt((2 * np.pi)** 6 * np.linalg.det(sigma)) * np.exp(-0.5 * ((theta_s - mu) @ np.linalg.inv(sigma) @ (theta_s - mu).T)[0][0])
+        log_prior=np.log(prior)
+        #print(np.linalg.det(sigma))
+        #print(np.exp(-0.5 * ((theta_s - mu) @ np.linalg.inv(sigma) @ (theta_s - mu).T)[0][0]))
+        print("log_prior")
+        print(log_prior)
+        #log_prior=np.log(1/np.sqrt(2*np.pi)**6*np.exp(-0.5*np.linalg.norm(theta_s)**2))
 
 
         #print(np.exp(-0.5 * ((theta_s - mu) @ np.linalg.inv(sigma) @ (theta_s - mu).T)[0][0]))
@@ -143,13 +150,10 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
             elif i==1:
                 theta_s=theta_s.at[i].set(np.exp(theta_s[i]))
 
-        prior = 1 / np.sqrt((2 * np.pi)** 6 * np.linalg.det(sigma)) * np.exp(-0.5 * ((theta_s - mu) @ np.linalg.inv(sigma) @ (theta_s - mu).T)[0][0])
-        log_prior=np.log(prior)
-        print("log_prior")
-        print(log_prior)
-        #log_prior=np.log(1/np.sqrt(2*np.pi)**6*np.exp(-0.5*np.linalg.norm(theta_s)**2))
 
         log_marg_llkd=_get_log_marginal_likelihood_gp(theta_s[0],theta_s[1],theta_s[2],theta_s[3],theta_s[4],theta_s[5],X,y,distances_array)
+        print("log_marg_llkd")
+        print(log_marg_llkd)
 
         exp_log_lik+=(log_marg_llkd+log_prior)
 
