@@ -123,20 +123,12 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
     exp_log_lik=0
 
 
-    print("XXXX")
-    #print(X)
-    print(S)
-    print(epsilon)
-    print(A)
-    print(mu)
     for s in range(S):
 
         theta_s=mu + A @ epsilon[s].T
 
         distances_array = get_distances_array(X, X)
 
-        print("theta_s")
-        print(theta_s)
 
         theta_s = theta_s[0]
 
@@ -147,8 +139,6 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
             elif i==1:
                 theta_s=theta_s.at[i].set(np.exp(theta_s[i]))
 
-        print("theta_s apres avoir modif theta")
-        print(theta_s)
 
         log_marg_llkd=_get_log_marginal_likelihood_gp(theta_s[0],theta_s[1],theta_s[2],theta_s[3],theta_s[4],theta_s[5],X,y,distances_array)
 
