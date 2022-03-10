@@ -180,4 +180,4 @@ if __name__ == '__main__':
     plot_vi_logistics(interactive=False,
                       interval_plot=1,
                       number_points_per_class=25,
-                      number_iterations=1000)
+                      number_iterations=100)

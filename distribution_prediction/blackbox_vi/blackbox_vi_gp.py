@@ -118,16 +118,32 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
     :return: The expected log-likelihood. That expectation is calculated according to the approximated posterior
     N(mu, Sigma) by using the samples in epsilon.
     """
+
+
+
+
+
     S=len(epsilon)
     exp_log_lik=0
     distances_array = get_distances_array(X, X)
 
-    for s in range(S):
-
-        theta_s=mu + A @ epsilon[s].T
+    #'''
+    mu = mu.reshape(-1, 6)
+    epsilon = epsilon.reshape(-1,6)
+    for e in epsilon:
+        theta_s = mu + A @ e
         theta_s = theta_s[0]
 
+        #'''
 
+        '''
+        for s in range(S):
+    
+            theta_s=mu + A @ epsilon[s].T
+            theta_s = theta_s[0]
+            print("theta_s origine")
+            print(theta_s)
+        '''
         for i in range(6):
             if i!=5 and i!=1:
                 theta_s=theta_s.at[i].set(np.exp(theta_s[i])**2)
@@ -218,7 +234,7 @@ def variational_inference_gp(X: np.ndarray,
     P = 6
 
     counter = 0
-    mu = np.zeros(shape=(1, P)) #+ 0.01
+    mu = np.zeros(shape=(1, P)) + 0.01
     A = 0.1 * onp.identity(P)
     A[5, 5] = 0.01
     A = np.array(A)
