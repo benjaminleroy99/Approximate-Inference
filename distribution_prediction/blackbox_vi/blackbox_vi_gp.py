@@ -123,6 +123,8 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
     exp_log_lik=0
     sigma=A @ A.T
 
+    distances_array = get_distances_array(X, X)
+
     #print("XXXX")
     #print(X)
 
@@ -144,13 +146,6 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
         print(theta_s)
         '''
 
-
-
-
-        distances_array=get_distances_array(X, X)
-        #print(distances_array)
-        #print("aquiii")
-
         theta_s = theta_s[0]
 
         for i in range(6):
@@ -165,7 +160,7 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
 
         #log_prior=1/np.sqrt(2*np.pi)**6*np.exp(-0.5*np.linalg.norm(theta_s)**2) #puis test theta_s-mu/sigma carre
         log_prior=1/np.sqrt(2*np.pi*np.linalg.det(sigma))**6*np.exp(-0.5*np.linalg.norm(theta_s-mu)**2/np.linalg.det(sigma)**2) #puis test theta_s-mu/sigma carre
-
+        log_prior=0
         exp_log_lik+=(log_marg_llkd+log_prior)
 
     exp_log_lik=exp_log_lik/S
