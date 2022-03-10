@@ -119,29 +119,13 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
     N(mu, Sigma) by using the samples in epsilon.
     """
     S=len(epsilon)
-    N,_=X.shape
     exp_log_lik=0
-
-    sigma= A * A.T
+    distances_array = get_distances_array(X, X)
 
     for s in range(S):
 
         theta_s=mu + A @ epsilon[s].T
-
-        distances_array = get_distances_array(X, X)
-        print("value esp:ion")
-        print(epsilon[s])
         theta_s = theta_s[0]
-
-
-        log_prior=np.log(1/np.sqrt(2*np.pi)**6*np.exp(-0.5*np.linalg.norm(epsilon[s])**2))
-
-        print("log_prior")
-        print(log_prior)
-        #log_prior=np.log(1/np.sqrt(2*np.pi)**6*np.exp(-0.5*np.linalg.norm(theta_s)**2))
-
-
-        #print(np.exp(-0.5 * ((theta_s - mu) @ np.linalg.inv(sigma) @ (theta_s - mu).T)[0][0]))
         for i in range(6):
             if i!=5 and i!=1:
                 theta_s=theta_s.at[i].set(np.exp(theta_s[i])**2)
@@ -154,7 +138,7 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
         print("log_marg_llkd")
         print(log_marg_llkd)
 
-        exp_log_lik+=(log_marg_llkd+log_prior)
+        exp_log_lik+=log_marg_llkd
 
     exp_log_lik=exp_log_lik/S
     print("exp_log_lik")
