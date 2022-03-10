@@ -127,23 +127,14 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
     exp_log_lik=0
     distances_array = get_distances_array(X, X)
 
-    #'''
-    mu = mu.reshape(-1, 6)
-    epsilon = epsilon.reshape(-1,6)
-    for e in epsilon:
-        theta_s = mu + A @ e
-        theta_s = theta_s[0]
 
-        #'''
-
-        '''
-        for s in range(S):
+    for s in range(S):
     
-            theta_s=mu + A @ epsilon[s].T
-            theta_s = theta_s[0]
-            print("theta_s origine")
-            print(theta_s)
-        '''
+        theta_s=mu.T + (A @ epsilon[s].T).T
+        theta_s = theta_s[0]
+        print("theta_s origine")
+        print(theta_s)
+
         for i in range(6):
             if i!=5 and i!=1:
                 theta_s=theta_s.at[i].set(np.exp(theta_s[i])**2)
