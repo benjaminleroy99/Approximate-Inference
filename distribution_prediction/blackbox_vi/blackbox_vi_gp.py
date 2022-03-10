@@ -133,8 +133,10 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
 
         theta_s = theta_s[0]
 
-        prior = 1 / np.sqrt((2 * np.pi)** 6 * np.linalg.det(sigma)) * np.exp(-0.5 * ((theta_s - mu) @ np.linalg.inv(sigma) @ (theta_s - mu).T)[0][0])
-        log_prior=np.log(prior)
+        #prior = 1 / np.sqrt((2 * np.pi)** 6 * np.linalg.det(sigma)) * np.exp(-0.5 * ((theta_s - mu) @ np.linalg.inv(sigma) @ (theta_s - mu).T)[0][0])
+        #log_prior=np.log(prior)
+        log_prior=np.log(1/np.sqrt(2*np.pi)**6*np.exp(-0.5*np.linalg.norm(theta_s)**2))
+
         #print(np.linalg.det(sigma))
         #print(np.exp(-0.5 * ((theta_s - mu) @ np.linalg.inv(sigma) @ (theta_s - mu).T)[0][0]))
         print("log_prior")
