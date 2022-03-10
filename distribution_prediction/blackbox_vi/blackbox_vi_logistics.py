@@ -141,7 +141,7 @@ def variational_inference_logistics(X: np.ndarray,
     epsilon = None
     mu_grad = None
     A_grad = None
-    '''
+
     while counter < number_iterations:
         mu_old = mu
         A_old = A
@@ -165,7 +165,7 @@ def variational_inference_logistics(X: np.ndarray,
             print(f"counter: {counter} - {onp.max((onp.linalg.norm(mu_old - mu), onp.linalg.norm(A_old - A)))}\r")
 
         yield mu, A.dot(A.T), A, mu_grad, A_grad, epsilon
-    '''
+
 
 
 def loss(A, mu,sigma_prior,epsilon,X,y):

@@ -127,15 +127,10 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
         theta_s=mu + A @ epsilon[s].T
         theta_s = theta_s[0]
 
-        log_amplitude_gaussian_squared, log_length_scale, log_noise_scale_squared, log_amplitude_linear_squared, log_offset_squared, c = theta_s
-        amplitude_gaussian_squared, noise_scale_squared, amplitude_linear_squared, offset_squared = np.exp(log_amplitude_gaussian_squared*2), np.exp(log_noise_scale_squared*2), np.exp(log_amplitude_linear_squared*2), np.exp(log_offset_squared*2)
-        length_scale = np.exp(log_length_scale)
-        log_marg_llkd = _get_log_marginal_likelihood_gp(amplitude_gaussian_squared, length_scale, noise_scale_squared, amplitude_linear_squared, offset_squared, c, X, y, distances_array)
 
-        '''
         for i in range(6):
             if i!=5 and i!=1:
-                theta_s=theta_s.at[i].set(np.exp(theta_s[i]*2))
+                theta_s=theta_s.at[i].set(np.exp(theta_s[i])**2)
 
             elif i==1:
                 theta_s=theta_s.at[i].set(np.exp(theta_s[i]))
@@ -148,7 +143,7 @@ def expected_log_marginal_likelihood(mu: np.ndarray,
         log_marg_llkd=_get_log_marginal_likelihood_gp(theta_s[0],theta_s[1],theta_s[2],theta_s[3],theta_s[4],theta_s[5],X,y,distances_array)
         print("log_marg_llkd")
         print(log_marg_llkd)
-        '''
+
         exp_log_lik+=log_marg_llkd
 
     exp_log_lik=exp_log_lik/S
