@@ -218,7 +218,7 @@ def variational_inference_gp(X: np.ndarray,
     P = 6
 
     counter = 0
-    mu = np.zeros(shape=(1, P)) + 0.01
+    mu = np.zeros(shape=(1, P)) #+ 0.01
     A = 0.1 * onp.identity(P)
     A[5, 5] = 0.01
     A = np.array(A)
@@ -231,7 +231,7 @@ def variational_inference_gp(X: np.ndarray,
     epsilon = None
     mu_grad = None
     A_grad = None
-    #'''
+
     while counter < number_iterations:
         A_old = A
         mu_old = mu
@@ -257,7 +257,7 @@ def variational_inference_gp(X: np.ndarray,
             print(f"counter: {counter} - {onp.max((onp.linalg.norm(mu_old - mu), onp.linalg.norm(A_old - A)))}\r")
 
         yield mu, A.dot(A.T), A, mu_grad, A_grad, epsilon
-    #'''
+
 
 def loss(A,mu,epsilon,X,y,sigma_prior):
 
